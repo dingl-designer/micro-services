@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: zuul-center
+
+server:
+  port: 8080
+
+zuul:
+  #Eureka Clients will be mapped under /api URL
+  prefix: /api
+  routes:
+    eureka-provider:
+      path: /provider/**
+      serviceId: EUREKA-PROVIDER
+    eureka-consumer:
+      path: /consumer/**
+      serviceId: EUREKA-CONSUMER
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+# Increase the hystrix timeout to 60S
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
